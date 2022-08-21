@@ -1,0 +1,23 @@
+
+
+  <div class="box visual-box" style="width: 100%; display: inline-block;" >
+    <div class="shadow"  style="border-radius: 15px; padding: 10px;">
+        <div class="box-topic" style="font-size: 25px;">Total Withdrawals and Deposits per Month (Last 12 Months)</div>
+        <br>
+        <span class="number" style="font-size: 25px;">$63,876</span>
+        <span class="material-icons" style="color: black;"></span>
+    </div>
+    <br>
+    <br>
+    <div class="chart-cont" stye="display: flex; justify-content: center; width: 50%; height: 100px;">
+        <div style="display: flex; justify-content: center; width: 100%; height: 50%">
+        <canvas baseChart
+                    [data]="lineChartData"
+                    [options]="lineChartOptions"
+                    [type]="lineChartType"
+                    [labels]="last12MonthsVar"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+</div>

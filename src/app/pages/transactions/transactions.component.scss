@@ -1,0 +1,68 @@
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  background-color: #f1f1f100;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color:rgb(104, 104, 104);
+  transition: 0.3s;
+  font-size: 17px;
+  border-bottom: 3px solid rgb(104, 104, 104);
+  width: 270px;
+  padding-bottom: 10px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  border-bottom-color: green;
+  color: green;
+}
+
+/* Style the tab content */
+.tabcontent {
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.tablinks {
+  font-size: 30px;
+}
+
+@media screen and (max-width: 1005px) {
+  .tab button {
+    width: 100%;
+    margin-left: 0px !important;
+    margin-top: 15px;
+  }
+
+  .title {
+    margin-top: 50px;
+  }
+
+  #tabLinks2 {
+    width: 100% !important;
+  }
+
+
+}

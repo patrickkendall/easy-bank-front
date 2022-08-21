@@ -1,0 +1,95 @@
+<ngx-spinner [name]="spinner1" [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+<div>
+    <div class="example-header">
+        <mat-form-field>
+            <input #filterInput class="filter" matInput (keyup)="applyFilter(filterInput.value)" style="font-size: 25px"
+                >
+        </mat-form-field>
+    </div>
+
+    <div class="example-container mat-elevation-z8 table-cont" style="width: 100%;overflow-x: auto">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="transactionAmount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Amt</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left; margin-left: -23px">&nbsp; Transaction
+                        Amount</span> {{row.transactionAmount}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="transactionWord">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Amt in Words</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Amt in Words</span>
+                    {{row.transactionWord}}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="sender">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Sender</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Sender</span> {{row.sender}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="receiver">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Receiver</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Receiver</span> {{row.receiver}}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="timestamp">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp; Timestamp</span> {{row.timestamp}}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="receivingBank">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Receiving Bank</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Receiving Bank</span>  {{row.recievingBank}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="accountNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Account Number</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Account Number</span>  {{row.accountNumber}} </mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Description</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Description</span> {{row.description}}</mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="remarks">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Remarks</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;Remarks</span> {{row.remarks}}</mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="withdrawalOrDeposit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    W/D</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span style="float: left">&nbsp;W/D</span> {{row.withdrawalOrDeposit}} </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+
+    <!-- Copyright 2018 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

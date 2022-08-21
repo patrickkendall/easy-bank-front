@@ -1,0 +1,112 @@
+<ngx-spinner [name]="spinner1" [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+<nav class="nav-bar" id="navBar">
+  <span>
+    <span class="material-icons nav-bar-icon"
+      style="font-size: 50px; left: 7px; top: 7px; position: absolute; cursor: pointer" (click)="openNav()">menu</span>
+    <span class="title">Easy Bank</span>
+  </span>
+  <div class="nav-container" id="topNavItems">
+    <img src="" alt="" />
+    <div class="nav-items" >
+      <a *ngIf="!token" class="nav-item" routerLink="">Home</a>
+      <a *ngIf="token" class="nav-item" routerLink="account">Acount</a>
+      <a class="nav-item" >About</a>
+      <a class="nav-item" >Contact</a>
+      <a *ngIf="token" class="nav-item" routerLink="transactions">Transactions</a>
+      <a *ngIf="token" class="nav-item">Loan Application</a>
+    </div>
+  </div>
+  <button *ngIf="!token" (click)="openModal(myLoginModal)">Login</button>
+  <button *ngIf="token" (click)="logout()" style="background-color: black !important; background: none">Logout</button>
+</nav>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <a *ngIf="!token" class="nav-item" routerLink="">Home</a>
+  <a *ngIf="token" class="side-nav-item" routerLink="account">Account</a>
+  <a *ngIf="!token" class="side-nav-item" routerLink="home">About</a>
+  <a *ngIf="!token" class="side-nav-item">Contact</a>
+  <a *ngIf="token" class="side-nav-item"routerLink="transactions">Transactions</a>
+  <a *ngIf="token" class="side-nav-item">Loan Application</a>
+</div>
+
+<modal #myLoginModal class="mymodal">
+  <modal-header>
+    <h1>Login</h1>
+  </modal-header>
+
+  <modal-content>
+    <div class="login-container">
+      <div class="login-form">
+        <form>
+          <br>
+          <div class="form-group">
+            <label for="email" style="font-weight: bold">Email</label>
+            <input [ngModelOptions]="{standalone: true}" type="email" [(ngModel)]="email" class="form-control"
+              id="email" placeholder="Enter email" />
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="password" style="font-weight: bold">Password</label>
+            <input [ngModelOptions]="{standalone: true}" type="password" [(ngModel)]="password" class="form-control"
+              id="password" placeholder="Password" />
+          </div>
+        </form>
+        <br>
+        <br>
+        <br>
+        <button style="position: absolute; margin-top: 200px; right: 15px; " (click)="login()"
+          class="btn ">Submit</button>
+      </div>
+    </div>
+  </modal-content>
+
+  <modal-footer><a style="text-decoration:underline"
+      (click)="openModal(myRegisterModal); closeModal(myLoginModal)">Don't have an account? REGISTER</a></modal-footer>
+</modal>
+
+<modal #myRegisterModal class="mymodal2">
+  <modal-header>
+    <h1>Register</h1>
+  </modal-header>
+
+  <modal-content>
+    <div class="login-container">
+      <div class="login-form">
+        <form>
+          <div class="form-group">
+            <label for="email" style="font-weight: bold">Email</label>
+            <input [ngModelOptions]="{standalone: true}" type="email" [(ngModel)]="email" class="form-control"
+              id="email" placeholder="Enter email" />
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="email" style="font-weight: bold">Username</label>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="username" class="form-control" id="email"
+              placeholder="Enter email" />
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="password" style="font-weight: bold">Password</label>
+            <input [ngModelOptions]="{standalone: true}" type="password" [(ngModel)]="password" class="form-control"
+              id="password" placeholder="Password" />
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="password" style="font-weight: bold">Confirm Password</label>
+            <input [ngModelOptions]="{standalone: true}" type="password" [(ngModel)]="password2" class="form-control"
+              id="password" placeholder="Password" />
+          </div>
+        </form>
+        <br>
+        <br>
+        <br>
+        <button style="position: absolute; margin-top: 350px; right: 15px; " (click)="register()"
+          class="btn ">Submit</button>
+      </div>
+    </div>
+  </modal-content>
+
+  <modal-footer><a style="text-decoration:underline"
+      (click)="openModal(myLoginModal); closeModal(myRegisterModal)">Already have an account? LOGIN</a></modal-footer>
+</modal>

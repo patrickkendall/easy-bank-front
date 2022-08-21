@@ -1,0 +1,72 @@
+<ngx-spinner [name]="spinner1" [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium" style="height: 100"></ngx-spinner>
+<div class="container py-5" style="background-color: white" id="cont">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputFirstname">Receiver</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="receiver" type="text" class="form-control" id="inputFirstname">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputLastname">Sender</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="sender" type="text" class="form-control" id="inputLastname">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputAddressLine1">Transaction Amount</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="transactionAmount" type="text" class="form-control" id="inputAddressLine1">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputAddressLine2">Transaction Amount in Words</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="transactionWord" type="text" class="form-control" id="inputAddressLine2">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputWebsite">Description</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="description" type="text" class="form-control" id="inputWebsite">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputPostalCode">Receiving Bank</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="receivingBank" type="text" class="form-control" id="inputPostalCode">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputWebsite">Remarks</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="remarks" type="text" class="form-control" id="inputWebsite">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputCity">Account Number</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="accountNumber" type="text" class="form-control" id="inputCity">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputWebsite">Withdrawal or Deposit</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="withdrawalOrDeposit" type="text" class="form-control" id="inputWebsite">
+                    </div>
+                </div>
+                <br>
+                <button (click)="submit()" type="button" class="btn btn-success px-4 float-right" style="border-radius: 5px;">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!--
+transactionAmount
+transactionWord
+reciever
+accountNumber
+recievingBank
+remarks
+sender
+timestamp
+withdrawalOrDeposit
+description
+/* -->

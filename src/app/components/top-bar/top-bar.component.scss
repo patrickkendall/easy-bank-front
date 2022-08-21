@@ -1,0 +1,192 @@
+
+button {
+    position: absolute;
+    right: 10px;
+    top:10px;
+}
+
+@media (max-width: 1168px) {
+    .nav-item {
+        display: none;
+    }
+
+    .title {
+      font-size: 23px !important;
+      margin-top: 14px;
+    }
+}
+
+.nav-bar-icon {
+    position: absolute;
+}
+
+button {
+    background-color: green;
+    color: white;
+}
+
+.nav-bar {
+  z-index: 2;
+  height: 70px;
+  background-color: white;
+} 
+
+.side-nav-item {
+  white-space: nowrap;
+}
+
+button:hover {
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+}
+.button-primary {
+    background-color: #333;
+    color: white;
+    border: none !important;
+}
+
+::ng-deep .close {
+    border: none;
+    font-size: 30px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+::ng-deep .modal-header {
+    background-color: rgb(243, 244, 246);
+}
+
+::ng-deep .toast-container {
+    position: absolute;
+    top: 60px;
+    right: 5px;
+    margin: 10px;
+    z-index: 9999;
+  }
+  .toast-top-right {
+    position: absolute;
+    right: 0px;
+    top: 60px;
+  }
+
+.nav-items {
+    margin-top: -20px;
+    margin-right: -50px;
+}
+
+.mymodal {
+    margin-top: -100px;
+  }
+
+  .modal-backdrop {
+    background-color: black;
+  }
+
+.title {
+    position: absolute;
+    left: 70px;
+    top: 1px;
+    font-size: 40px;;
+}
+
+::ng-deep .toast-container {
+  margin-top: 25px;
+  font-size: 21px;
+  text-align: center;
+
+  -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein .2s; /* Firefox < 16 */
+      -ms-animation: fadein .2s; /* Internet Explorer */
+       -o-animation: fadein .2s; /* Opera < 12.1 */
+          animation: fadein .2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+
+::ng-deep .toast-container {
+  position: absolute;
+  top: 60px;
+  right: 5px;
+  margin: 10px;
+  z-index: 9999;
+  transition: 0.2s;
+}
+.toast-top-right {
+  position: absolute;
+  right: 0px;
+  top: 60px;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: white;; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.2s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: 0px 0px 10px #888888;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
