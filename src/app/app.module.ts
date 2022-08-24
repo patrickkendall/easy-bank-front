@@ -30,6 +30,7 @@ import { TransactionsFormComponent } from './components/transactions-form/transa
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgChartsModule } from 'ng2-charts';
 import { TransactionsVisualComponent } from './components/transactions-visual/transactions-visual.component';
+import { TransactionsTypeComponent } from './components/transactions-type/transactions-type.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { TransactionsVisualComponent } from './components/transactions-visual/tr
     TransactionsTableComponent,
     TransactionsFormComponent,
     TransactionsVisualComponent,
+    TransactionsTypeComponent,
   ],
   imports: [
     BrowserModule,
