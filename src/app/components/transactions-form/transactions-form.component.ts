@@ -75,7 +75,7 @@ export class TransactionsFormComponent implements OnInit {
         transactionWord: this.transactionWord,
         sender: this.sender,
         withdrawalOrDeposit: this.withdrawalOrDeposit,
-        timestamp: date,
+        timestamp: this.timestamp,
         description: this.description,
       };
       let headers = new HttpHeaders();

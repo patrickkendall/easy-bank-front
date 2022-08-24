@@ -72,8 +72,8 @@ export class TransactionsVisualComponent implements OnInit {
   }
 
   getMonthYear(date: string): string {
-    console.log("Oh my God", this.getMonthWord(parseInt(date.substring(2, 3))) + '-' + date.substring(0, 4))
-    return this.getMonthWord(parseInt(date.substring(2, 3))) + '-' + date.substring(0, 4);
+    console.log("Oh my God", this.getMonthWord(parseInt(date.substring(5, 7))) + '-' + date.substring(0, 4))
+    return this.getMonthWord(parseInt(date.substring(5, 7))) + '-' + date.substring(0, 4);
   }
 
   getMonthWord(month: number): string | undefined {
@@ -115,11 +115,8 @@ export class TransactionsVisualComponent implements OnInit {
     this.deposits = this.transactions.filter(data => {
       return data.withdrawalOrDeposit == 'Deposit';
     })
-    console.log("todayDD", this.deposits)
     for (var x = 0; x < this.withdrawls.length; x++) {
       for (var y = 0; y < this.last12MonthsVar.length; y++) {
-        console.log("TODAT",this.getMonthYear(this.withdrawls[x].timestamp.substring(0,4) + "-" + this.getMonthWord(this.withdrawls[x].timestamp.substring(5,7))))
-        console.log("L12M", this.last12MonthsVar[y])
         if (this.getMonthYear(this.withdrawls[x].timestamp.substring(0,4) + "-" + this.getMonthWord(this.withdrawls[x].timestamp.substring(5,7)))== this.last12MonthsVar[y]) {
           isValidDate = true;
         }
@@ -128,11 +125,8 @@ export class TransactionsVisualComponent implements OnInit {
         this.withdrawls.splice(x, 1);
       }
     }
-    console.log("deposits 21-22",this.withdrawls)
     for (var x = 0; x < this.deposits.length; x++) {
       for (var y = 0; y < this.last12MonthsVar.length; y++) {
-        console.log("TODAT222",this.getMonthYear(this.deposits[x].timestamp.substring(0,4) + "-" + this.getMonthWord(this.deposits[x].timestamp.substring(5,7))))
-        console.log("L12M222", this.last12MonthsVar[y])
         if (this.getMonthYear(this.deposits[x].timestamp.substring(0,4) + "-" + this.getMonthWord(this.deposits[x].timestamp.substring(5,7)))== this.last12MonthsVar[y]) {
           isValidDate = true;
         }
@@ -141,7 +135,6 @@ export class TransactionsVisualComponent implements OnInit {
         this.deposits.splice(x, 1);
       }
     }
-    console.log("todayDDD", this.deposits)
     for (var x = 0; x < this.last12MonthsVar.length; x++) {
       for (var y = 0; y < this.withdrawls.length; y++) {
         if (this.getMonthYear(this.withdrawls[y].timestamp) == this.last12MonthsVar[x]) {
@@ -152,11 +145,8 @@ export class TransactionsVisualComponent implements OnInit {
     }
     for (var x = 0; x < this.deposits.length; x++) {
       for (var y = 0; y < this.last12MonthsVar.length; y++) {
-        console.log("equals?", this.getMonthYear(this.transactions[x].timestamp) + " " + this.last12MonthsVar[y]);
         if (this.getMonthYear(this.deposits[x].timestamp) == this.last12MonthsVar[y]) {
           this.depositNums[y] += this.deposits[x].transactionAmount;
-          console.log("dep num",this.depositNums)
-          console.log("HEEEEERE")
         }
 
       }
@@ -165,15 +155,18 @@ export class TransactionsVisualComponent implements OnInit {
       this.depositNums.unshift(this.depositNums.pop())
       this.withdrawalNums.unshift(this.withdrawalNums.pop())
     }
-
+    this.rotateLeft(this.depositNums, 6);
+    this.rotateLeft(this.withdrawalNums, 6);
     this.lineChartData.datasets[0].data = this.depositNums;
     this.lineChartData.datasets[1].data = this.withdrawalNums;
   }
 
 
-rotateLeft(arr: any[]){
+rotateLeft(arr: any[], loop: number){
+  for(var i = 0; i < loop; i++){
   let first = arr.shift();
   arr.push(first);
+  }
   return arr;
 }
 
