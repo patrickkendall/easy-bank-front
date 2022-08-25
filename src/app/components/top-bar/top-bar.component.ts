@@ -12,6 +12,17 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class TopBarComponent implements OnInit {
 
+  image: any;
+  imgPreview: any = "../../../assets/images/profile.jpg"
+  file: any;
+  savePig: HTMLInputElement = document.getElementById('imagePicker')! as HTMLInputElement;
+  savePigFile: any;
+  files!: FileList | null;
+
+  onSavePost() {
+
+  }
+
   logout() {
     localStorage.removeItem("token")
     this.token = ""
@@ -41,8 +52,9 @@ export class TopBarComponent implements OnInit {
   token: string = ""
   tokenSaved: boolean = false;
   spinner1 ="sp1"
+  reader: FileReader = new FileReader();
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (!localStorage.getItem("token")) {
       (<HTMLElement>document.getElementById("topNavItems")).style.marginRight = "5%";
     } {
@@ -55,6 +67,11 @@ export class TopBarComponent implements OnInit {
       this.tokenSaved = false;
       this.router.navigateByUrl("/");
     }
+    this.savePig = document.getElementById('imagePicker') as HTMLInputElement;
+    //this.files = this.savePig.files;
+    this.useDefaultImage(document.getElementById("imagePicker")! as HTMLInputElement);
+    this.file = await fetch("../../../assets/images/profile.jpg").then(r => r.blob());
+    //../../../assets/images/profile.jpg
   }
 
   toggleMenu() {
@@ -118,11 +135,12 @@ export class TopBarComponent implements OnInit {
       this.showSpinner(
         this.spinner1
       )
-      this.http.post('https://easy-back.vercel.app/user/login', data, { headers: headers })
+      this.http.post('http://easy-back.vercel.app/user/login', data, { headers: headers })
         .subscribe((res: any) => {
-          console.log(res);
-          localStorage.setItem("token", res["token"])
-          this.token = res["token"]
+          console.log("ress",res)
+          localStorage.setItem("token", res["fullData"]["token"])
+          localStorage.setItem("email", res["fullData"]["email"]);
+          this.token = res["fullData"]["token"]
           this.tokenSaved = true;
           this.modalService.close(this.myLoginModal);
           this.router.navigateByUrl("/account")
@@ -131,7 +149,6 @@ export class TopBarComponent implements OnInit {
           })
           this.hideSpinner(this.spinner1)
         }, (error: any) => {
-          console.log(error)
           this.toastr.error(JSON.stringify(error.error.message.replace(/"/g, '')), undefined, {
             positionClass: 'toast-top-right'
           })
@@ -143,6 +160,55 @@ export class TopBarComponent implements OnInit {
 
   }
 
+  imageConfirm() {
+  }
+
+makeBlobFromFilePath(path: string) {
+  return fetch(path).then(response => response.blob());
+}
+
+
+  onImagePicked(element?: any) {
+    this.file = element.files[0]
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imgPreview = reader.result as string;
+    }
+    this.readAs(this.file,0);
+  }
+
+  getBlob() {
+    return this.files
+  }
+
+  turnPathToBlob(path: string) {
+    return this.http.get(path, { responseType: 'blob' })
+  }
+
+  async useDefaultImage(element: any) {
+    this.file = await fetch("../../../assets/images/profile.jpg").then(r => r.blob());
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imgPreview = "../../../assets/images/profile.jpg";
+    }
+    this.readAs(this.file,1);
+  }
+
+  readAs(file: any, func: number) {
+    this.reader.readAsDataURL(file)
+    if(func == 1) {
+      this.reader.onload = () => {
+        this.imgPreview = "../../../assets/images/profile.jpg";
+      }
+    } else {
+      this.reader.onload = () => {
+        this.imgPreview = this.reader.result as string;
+      }
+    }
+  }
+
+
   showSpinner(name: string) {
     this.spinner.show(name);
   }
@@ -152,7 +218,13 @@ export class TopBarComponent implements OnInit {
   }
 
 
+  generateRandomFileName() {
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+  }
+
   register() {
+    let formData: FormData = new FormData();
+
     if (this.password != this.password2) {
       this.toastr.error('"These passwords do not match"');
     } else if (
@@ -167,16 +239,18 @@ export class TopBarComponent implements OnInit {
         "username": this.username,
         "password": this.password,
         "email": this.email,
+        "image": this.file,
       }
+      formData.append('image', this.file, this.generateRandomFileName());
+      formData.append('username', this.username);
+      formData.append('password', this.password);
+      formData.append('email', this.email);
       let headers = new HttpHeaders()
       headers.set("Access-Control-Allow-Origin", "*")
-      this.http.post("https://easy-back.vercel.app/user/signup", data, { headers: headers }).subscribe(res => {
-        console.log(res)
+      this.http.post("http://easy-back.vercel.app/user/signup", formData, {responseType: 'text'}).subscribe(res => {
         this.toastr.success('"Registration Successful"')
         this.modalService.close(this.myRegisterModal);
-      }, (error: any) => {
-        this.toastr.error(JSON.stringify(error.error.message.replace(/"/g, '')))
-      });
+      })
     }
   }
 

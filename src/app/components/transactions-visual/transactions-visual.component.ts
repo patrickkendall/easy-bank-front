@@ -67,12 +67,10 @@ export class TransactionsVisualComponent implements OnInit {
     }
     this.last12MonthsVar = last12Months;
     this.lineChartData.labels = this.last12MonthsVar;
-    console.log("l12m", this.last12MonthsVar)
     this.filterData();
   }
 
   getMonthYear(date: string): string {
-    console.log("Oh my God", this.getMonthWord(parseInt(date.substring(5, 7))) + '-' + date.substring(0, 4))
     return this.getMonthWord(parseInt(date.substring(5, 7))) + '-' + date.substring(0, 4);
   }
 

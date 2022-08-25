@@ -31,6 +31,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgChartsModule } from 'ng2-charts';
 import { TransactionsVisualComponent } from './components/transactions-visual/transactions-visual.component';
 import { TransactionsTypeComponent } from './components/transactions-type/transactions-type.component';
+import { ProfilePanelComponent } from './components/profile-panel/profile-panel.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TransactionsTypeComponent } from './components/transactions-type/transa
     TransactionsFormComponent,
     TransactionsVisualComponent,
     TransactionsTypeComponent,
+    ProfilePanelComponent,
   ],
   imports: [
     BrowserModule,

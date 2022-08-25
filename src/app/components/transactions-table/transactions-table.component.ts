@@ -27,19 +27,17 @@ export class TransactionsTableComponent implements OnInit {
     headers.set('Access-Control-Allow-Origin', '*');
     this.showSpinner(this.spinner1);
     this.http
-      .get('https://easy-back.vercel.app/transaction/transactions', {
+      .get('http://easy-back.vercel.app/transaction/transactions', {
         headers: headers,
       })
       .subscribe((res: any) => {
         this.transactions = res;
-        console.log(this.transactions);
         this.hideSpinner(this.spinner1);
         const transactions: TransactionData[] = [];
         for (var i = 0; i <= this.transactions.length; i++) { transactions.push(this.addTransaction(i)); }
     
         // Assign the data to the data source for the table to render
         this.dataSource = new MatTableDataSource(transactions);
-        console.log("dataSource", this.dataSource);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
@@ -92,7 +90,6 @@ export class TransactionsTableComponent implements OnInit {
       description: this.transactions[id]?.description,
       remarks: this.transactions[id]?.remarks
     };
-    console.log(trans)
     return trans
   }
   

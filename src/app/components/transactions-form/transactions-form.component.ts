@@ -48,6 +48,10 @@ export class TransactionsFormComponent implements OnInit {
     return new Date(new Date(2022,1,1).getTime() + Math.random() * (new Date().getTime() - new Date(2021,1,1).getTime()));
 }
 
+onSaveaPost() {
+  
+}
+
 
 
   submit() {

@@ -73,7 +73,20 @@
   <modal-content>
     <div class="login-container">
       <div class="login-form">
+        <div class="image-preview-container">
+          <img [src]="imgPreview"class="image-view">
+        </div>
+        <div style="position:absolute; margin-top: 10px; margin-left: 160px; background-color: black">
+          <button (click)="filePicker.click()" style="margin-top: 5px; position: absolute; width: 150px; margin-left: 70px" class="btn">Choose Image</button>
+        </div>
+        <div style="position:absolute; margin-top: 10px; margin-left: 340px; background-color: black">
+          <button (click)="useDefaultImage(filePicker)" style="position: absolute; width: 150px; margin-top: 5px; margin-left: 70px" class="btn">Use Default</button>
+        </div>
+        <br>
         <form>
+          <br>
+          <br>
+
           <div class="form-group">
             <label for="email" style="font-weight: bold">Email</label>
             <input [ngModelOptions]="{standalone: true}" type="email" [(ngModel)]="email" class="form-control"
@@ -97,11 +110,12 @@
             <input [ngModelOptions]="{standalone: true}" type="password" [(ngModel)]="password2" class="form-control"
               id="password" placeholder="Password" />
           </div>
+          <br>
+          <input style="visibility: hidden"  type="file" (change)="onImagePicked(filePicker);" #filePicker id="imagePicker">
+
         </form>
         <br>
-        <br>
-        <br>
-        <button style="position: absolute; margin-top: 350px; right: 15px; " (click)="register()"
+        <button style="position: absolute; margin-top: 500px; right: 15px; " (click)="register()"
           class="btn ">Submit</button>
       </div>
     </div>

@@ -16,6 +16,21 @@ button {
     }
 }
 
+.image-preview-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+
+.image-view {
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: #333 0px 0px 5px;
+}
+}
+
 .nav-bar-icon {
     position: absolute;
 }
