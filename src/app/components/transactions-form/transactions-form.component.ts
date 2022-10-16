@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {HttpClient, HttpHeaders} from '@angular/common/http'; 
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -27,12 +27,14 @@ export class TransactionsFormComponent implements OnInit {
   withdrawalOrDeposit: string = "";
   description: string = "";
   spinner1: string = "sp1"
+  country: any;
+  userStatus: string = "active";
 
 
-  constructor(private spinner:NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    this.getCountry()
   }
 
 
@@ -44,18 +46,103 @@ export class TransactionsFormComponent implements OnInit {
     this.spinner.hide(name);
   }
 
- getRandomDateBetweenTwoDates() {
-    return new Date(new Date(2022,1,1).getTime() + Math.random() * (new Date().getTime() - new Date(2021,1,1).getTime()));
-}
+  getRandomDateBetweenTwoDates() {
+    return new Date(new Date(2022, 1, 1).getTime() + Math.random() * (new Date().getTime() - new Date(2021, 1, 1).getTime()));
+  }
 
-onSaveaPost() {
-  
-}
+  onSaveaPost() {
+
+  }
+
+  async getCountry(): Promise<string> { 
+    var status
+    let headers = new HttpHeaders();
+    await this.http.get('https://api.geoapify.com/v1/ipinfo?&apiKey=b3110579766149e99e5e615d6d01b678', {
+      headers: headers,
+    }).subscribe((res: any) => {
+      this.country = res.country
+      console.log(this.country)
+      var data = {
+        password: localStorage.getItem("password"),
+        email: localStorage.getItem("email"),
+        username: localStorage.getItem("username"),
+      }
+      this.http.post("//localhost:4000/user/user", data).subscribe((res: any) => {
+        this.userStatus = res.status
+        console.log("status", this.userStatus)
+      })
+      if (this.country.name == "Nigeria" || this.userStatus == "privileged") {
+        if(this.userStatus == "privileged"){
+          return this.updateUserStatus("privileged")
+        } else if(this.userStatus == "active"){
+        this.updateUserStatus("active")
+      } else {
+        this.updateUserStatus("inactive")
+      }
+    } return ""}), (err: any) => {
+      console.log(err)
+    }
+    return ""
+  }
+
+
+  updateUserStatus(isActive: string): string {
+    var data;
+    if (isActive == "inactive") {
+      data = {
+        status: "inactive",
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password"),
+        username: localStorage.getItem("username")
+      }
+      this.http.put("//localhost:4000/user/update", data).subscribe((res: any) => {
+        console.log(res)
+      }), (err: any) => {
+        console.log(err)
+      }
+      this.userStatus = "inactive";
+      return "inactive"
+    } else if (isActive == "privileged") {
+      data = {
+        status: "privileged",
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password"),
+        username: localStorage.getItem("username"),
+      }
+      this.userStatus = "privileged";
+      return "privileged"
+    } else {
+      data = {
+        status: "active",
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password"),
+        username: localStorage.getItem("username"),
+      }
+      this.userStatus = "active";
+      return "active"
+    }
+  }
+
+  /* updateUserStatus() {
+    let headers = new HttpHeaders();
+    this.http.put("//localhost:4000/user/update", {")
+  } */
 
 
 
-  submit() {
-    if (
+  async submit() {
+    await this.getCountry()
+    if (this.country.name != "United States" && this.userStatus != "privileged") {
+      this.toastr.error('"You are not allowed to make transactions from this location"');
+      this.http.put("//localhost:4000/user/update", {
+        status: "inactive",
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password"),
+        username: localStorage.getItem("username")
+      }).subscribe((res: any) => {
+      })
+    }
+    else if (
       this.remarks == '' ||
       this.receivingBank == '' ||
       this.accountNumber <= 0 ||
@@ -86,9 +173,9 @@ onSaveaPost() {
       headers.set('Access-Control-Allow-Origin', '*');
       (<HTMLElement>document.getElementById("navBar")).scrollIntoView()
       this.showSpinner(this.spinner1);
-      
+      ////easy-bank-back.ue.r.appspot.com/transaction/create
       this.http
-        .post('https://easy-back.vercel.app/transaction/create', data, {
+        .post('//localhost:4000/transaction/create', data, {
           headers: headers,
         })
         .subscribe((res: any) => {

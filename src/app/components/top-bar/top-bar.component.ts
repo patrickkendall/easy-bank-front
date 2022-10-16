@@ -18,6 +18,7 @@ export class TopBarComponent implements OnInit {
   savePig: HTMLInputElement = document.getElementById('imagePicker')! as HTMLInputElement;
   savePigFile: any;
   files!: FileList | null;
+  country: string = "";
 
   onSavePost() {
 
@@ -135,11 +136,17 @@ export class TopBarComponent implements OnInit {
       this.showSpinner(
         this.spinner1
       )
-      this.http.post('http://easy-back.vercel.app/user/login', data, { headers: headers })
+      //'//easy-bank-back.ue.r.appspot.com/user/login'
+      this.http.post('//localhost:4000/user/login', data, { headers: headers })
         .subscribe((res: any) => {
           console.log("ress",res)
           localStorage.setItem("token", res["fullData"]["token"])
           localStorage.setItem("email", res["fullData"]["email"]);
+          localStorage.setItem("username", res["fullData"]["username"]);
+          localStorage.setItem("password", res["fullData"]["password"]);
+          localStorage.setItem("userId", res["fullData"]["id"]);
+          localStorage.setItem("status", res["fullData"]["status"]);
+          console.log("userId", res)
           this.token = res["fullData"]["token"]
           this.tokenSaved = true;
           this.modalService.close(this.myLoginModal);
@@ -148,13 +155,7 @@ export class TopBarComponent implements OnInit {
             positionClass: 'toast-top-right'
           })
           this.hideSpinner(this.spinner1)
-        }, (error: any) => {
-          this.toastr.error(JSON.stringify(error.error.message.replace(/"/g, '')), undefined, {
-            positionClass: 'toast-top-right'
-          })
-        });
-      if (this.tokenSaved) {
-      }
+        })
     }
 
 
@@ -208,6 +209,16 @@ makeBlobFromFilePath(path: string) {
     }
   }
 
+  private getCountry() {
+    let headers = new HttpHeaders();
+    this.http.get('https://api.geoapify.com/v1/ipinfo?&apiKey=b3110579766149e99e5e615d6d01b678', {
+      headers: headers,
+      }).subscribe((res: any) => {
+      this.country = JSON.stringify(res.country)
+      console.log(JSON.stringify(this.country))
+  })
+  }
+
 
   showSpinner(name: string) {
     this.spinner.show(name);
@@ -244,10 +255,12 @@ makeBlobFromFilePath(path: string) {
       formData.append('image', this.file, this.generateRandomFileName());
       formData.append('username', this.username);
       formData.append('password', this.password);
+      formData.append('status', "active");
       formData.append('email', this.email);
       let headers = new HttpHeaders()
       headers.set("Access-Control-Allow-Origin", "*")
-      this.http.post("http://easy-back.vercel.app/user/signup", formData, {responseType: 'text'}).subscribe(res => {
+      //"//easy-bank-back.ue.r.appspot.com/user/signup",
+      this.http.post("//localhost:4000/user/signup", formData, {responseType: 'text'}).subscribe(res => {
         this.toastr.success('"Registration Successful"')
         this.modalService.close(this.myRegisterModal);
       })

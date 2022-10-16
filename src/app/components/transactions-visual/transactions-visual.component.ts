@@ -30,7 +30,8 @@ export class TransactionsVisualComponent implements OnInit {
     let headers = new HttpHeaders();
     headers.set('Access-Control-Allow-Origin', '*');
     this.http
-      .get('https://easy-back.vercel.app/transaction/transactions', {
+      //.get('//easy-bank-back.ue.r.appspot.com/transaction/transactions', {
+        .get('//localhost:4000/transaction/transactions', {
         headers: headers,
       })
       .subscribe((res: any) => {

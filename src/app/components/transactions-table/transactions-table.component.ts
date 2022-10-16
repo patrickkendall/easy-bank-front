@@ -27,7 +27,8 @@ export class TransactionsTableComponent implements OnInit {
     headers.set('Access-Control-Allow-Origin', '*');
     this.showSpinner(this.spinner1);
     this.http
-      .get('http://easy-back.vercel.app/transaction/transactions', {
+      //.get('//easy-bank-back.ue.r.appspot.com/transaction/transactions', {
+        .get('//localhost:4000/transaction/transactions', {
         headers: headers,
       })
       .subscribe((res: any) => {
